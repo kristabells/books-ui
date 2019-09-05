@@ -1,0 +1,75 @@
+{
+  "name": "books-ui",
+  "version": "0.1.0",
+  "author": "Kristie Stalberger",
+  "private": true,
+  "dependencies": {
+    "@babel/polyfill": "^7.4.0",
+    "@babel/runtime": "^7.4.2",
+    "@material-ui/core": "^4.3.3",
+    "@material-ui/icons": "^4.2.1",
+    "axe-core": "^3.3.1",
+    "axios": "^0.19.0",
+    "eslint": "^6.2.1",
+    "jest-matcher-utils": "^24.9.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.1",
+    "react-testing-library": "^8.0.1"
+  },
+  "scripts": {
+    "start": "npm install && react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "lint": "eslint **/** --ext .js --quiet",
+    "lint-fix": "eslint **/** --ext .js --fix --quiet",
+    "pre-commit": "lint-staged",
+    "test": "jest --bail",
+    "test:changed": "jest --onlyChanged",
+    "test:coverage": "jest --coverage",
+    "test:dev": "npm run test:changed -- --watch",
+    "test:debug": "node --inspect npm run test:dev -- --runInBand"
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "clover"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/setupTests.js"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "lint-staged": {
+    "*.{js,vue,scss,sass,css}": [
+      "npm run lint:fix -- --files",
+      "git add",
+      "jest --bail --findRelatedTests"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pre-commit"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:4000",
+  "engines": {
+    "node": "^8.0.0"
+  }
+}
