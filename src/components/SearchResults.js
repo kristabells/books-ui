@@ -54,7 +54,7 @@ export default function SearchResults() {
 
     async function getBooks() {
         setIsLoading(true)
-        const response = await axios.get(`/api/books?q=${query}&page=${page}&maxResults=${maxPageLength}`);
+        const response = await axios.get(encodeURI(`/api/books?q=${query}&page=${page}&maxResults=${maxPageLength}`));
         setBookData(response.data);
         setIsLoading(false);
     }
