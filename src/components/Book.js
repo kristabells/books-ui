@@ -7,13 +7,17 @@ import ListItemText from "@material-ui/core/ListItemText"
 import Typography from "@material-ui/core/Typography"
 import {searchContext} from "./App"
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import _ from 'lodash'
 
 const useStyles = makeStyles(theme => ({
     inline: {
         display: 'inline',
     },
     highlightedText: {
-        background: 'yellow'
+        background: 'yellow !important'
+    },
+    bold: {
+        fontWeight: 'bold'
     }
 }));
 
@@ -25,8 +29,8 @@ export default function Book({book}) {
         const startIndex = text
             .toString()
             .toLowerCase()
-            .indexOf(query.toString().toLowerCase());
-        const endIndex = startIndex + query.length;
+            .indexOf(query.query.toString().toLowerCase());
+        const endIndex = startIndex + query.query.length;
 
         if (startIndex !== endIndex) {
             text = `${text.slice(0, endIndex)}</span>${text.slice(
@@ -50,7 +54,7 @@ export default function Book({book}) {
                     </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                    primary={<span dangerouslySetInnerHTML={{__html: highlight(book.title)}}/>}
+                    primary={<div className={classes.bold} dangerouslySetInnerHTML={{__html: _.unescape(highlight(book.title))}}/>}
                     secondary={book.authors &&
                     <React.Fragment>
                         <Typography
