@@ -37,7 +37,6 @@ export default function SearchResults() {
     let [page, setPage] = useState(0);
     const [maxPageLength] = useState(10);
     const {query} = useContext(searchContext);
-    const debouncedGetBooks = _.debounce(getBooks, 500)
     let [isLoading, setIsLoading] = useState(false)
 
     /* eslint-disable-next-line */
@@ -48,7 +47,10 @@ export default function SearchResults() {
     /* eslint-disable-next-line */
     useEffect(() => {
         if (query !== '') {
-            debouncedGetBooks()
+            const timeout = setTimeout(() => {
+                getBooks()
+            }, 500)
+            return () => clearTimeout(timeout)
         }
     }, [query, page]);
 
