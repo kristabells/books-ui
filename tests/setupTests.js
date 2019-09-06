@@ -2,7 +2,7 @@
  * This file is for setting up tests only
  */
 import axe from "axe-core";
-import {cleanup} from 'react-testing-library';
+import {cleanup} from '@testing-library/react';
 import { printReceived, matcherHint } from 'jest-matcher-utils';
 
 // Cleanup the document.body after each test

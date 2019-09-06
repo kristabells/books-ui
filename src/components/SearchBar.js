@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from "@material-ui/core/Typography"
-import SearchResults from "./SearchResults"
+import {searchContext} from "./App"
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -69,11 +69,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export const searchContext = React.createContext(null);
-
 export default function SearchBar() {
     const classes = useStyles();
-    const [query, setQuery] = useState(null);
+    const { setQuery } = useContext(searchContext);
 
     function handleChange(event){
         const { target: { value } } = event;
@@ -81,7 +79,6 @@ export default function SearchBar() {
     }
 
     return (
-        <searchContext.Provider value={query}>
             <AppBar position="static">
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
@@ -104,7 +101,5 @@ export default function SearchBar() {
                     </div>
                 </Toolbar>
             </AppBar>
-            <SearchRyesults/>
-        </searchContext.Provider>
     );
 }

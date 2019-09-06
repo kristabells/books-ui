@@ -24,6 +24,7 @@
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
+    "enzyme": "^3.10.0",
     "eslint": "^6.1.0",
     "eslint-config-react-app": "^5.0.1",
     "eslint-loader": "2.2.1",
@@ -54,7 +55,6 @@
     "react-app-polyfill": "^1.0.2",
     "react-dev-utils": "^9.0.3",
     "react-dom": "^16.9.0",
-    "react-testing-library": "^8.0.1",
     "resolve": "1.12.0",
     "resolve-url-loader": "3.1.0",
     "sass-loader": "7.2.0",
@@ -71,9 +71,8 @@
   "scripts": {
     "start": "npm install && node scripts/start.js",
     "build": "node scripts/build.js",
-    "lint": "eslint **/** --ext .js --quiet",
-    "lint-fix": "eslint **/** --ext .js --fix --quiet",
-    "pre-commit": "lint-staged",
+    "lint": "eslint --ignore-path .gitignore .",
+    "lint-fix": "eslint --ignore-path .gitignore . --fix",
     "test": "jest --bail",
     "test:changed": "jest --onlyChanged",
     "test:coverage": "jest --coverage",
@@ -82,7 +81,7 @@
   },
   "jest": {
     "roots": [
-      "<rootDir>/src"
+      "<rootDir>/tests"
     ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
@@ -94,8 +93,8 @@
     ],
     "setupFilesAfterEnv": [],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+      "<rootDir>/tests/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/tests/**/*.{spec,test}.{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "jest-environment-jsdom-fourteen",
     "transform": {
@@ -113,14 +112,8 @@
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
-      "web.js",
       "js",
-      "web.ts",
-      "ts",
-      "web.tsx",
-      "tsx",
       "json",
-      "web.jsx",
       "jsx",
       "node"
     ],
@@ -135,18 +128,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "lint-staged": {
-    "*.{js,vue,scss,sass,css}": [
-      "npm run lint:fix -- --files",
-      "git add",
-      "jest --bail --findRelatedTests"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pre-commit"
-    }
   },
   "browserslist": {
     "production": [

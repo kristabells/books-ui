@@ -5,7 +5,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar/Avatar"
 import ListItemText from "@material-ui/core/ListItemText"
 import Typography from "@material-ui/core/Typography"
-import {searchContext} from "./SearchBar"
+import {searchContext} from "./App"
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 const useStyles = makeStyles(theme => ({
@@ -19,13 +19,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Book({book}) {
     const classes = useStyles();
-    const query = useContext(searchContext).toLowerCase();
+    const query = useContext(searchContext);
 
     function highlight(text) {
         const startIndex = text
             .toString()
             .toLowerCase()
-            .indexOf(query);
+            .indexOf(query.toString().toLowerCase());
         const endIndex = startIndex + query.length;
 
         if (startIndex !== endIndex) {

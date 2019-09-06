@@ -1,9 +1,9 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react"
 import axios from 'axios'
 import _ from 'lodash'
-import {searchContext} from "./SearchBar"
+import {searchContext} from "./App"
 import Book from "./Book"
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles'
 import List from "@material-ui/core/List/List"
 import Divider from "@material-ui/core/Divider"
 import IconButton from "@material-ui/core/IconButton"
@@ -19,13 +19,13 @@ export default function SearchResults() {
     let [bookData, setBookData] = useState(null);
     let [page, setPage] = useState(0);
     const [maxPageLength] = useState(10);
-    const query = useContext(searchContext);
+    const { query } = useContext(searchContext);
     const debouncedGetBooks = _.debounce(getBooks, 500)
 
     /* eslint-disable-next-line */
     useEffect(() => {
         debouncedGetBooks();
-    }, [query, page]);
+    }, [query, page, debouncedGetBooks]);
 
     async function getBooks() {
         const response = await axios.get(`/api/books?q=${query}&page=${page}&maxResults=${maxPageLength}`);
@@ -57,20 +57,15 @@ export default function SearchResults() {
 
 // TODO clean up styles
 // TODO tests
-// TODO add linting
-// TODO add to readmes
 // TODO make prettier
 // TODO add spinner
-// TODO improve component structure
 // TODO highlight text in title that matches search term
-// TODO error handling
 
     return (
         <Container>
-            {query && <Typography variant='h6'>Displaying results { getCurrentPageRange()} of {getFormattedTotalCount()}</Typography>}
-
             {query && bookData && bookData.totalItems > 0 &&
             <div>
+                <Typography variant='h6'>Displaying results {getCurrentPageRange()} of {getFormattedTotalCount()}</Typography>
                 <IconButton
                     onClick={handlePageBack}
                     disabled={page === 0}
@@ -85,11 +80,11 @@ export default function SearchResults() {
                     <KeyboardArrowRight/>
                 </IconButton>
                 <List className={classes.books}>
-                    {bookData.books.map(book => {
+                    {bookData.books.map((book, index, books) => {
                         return (
                             <div key={book.id}>
                                 <Book book={book}/>
-                                <Divider variant="inset" component="li"/>
+                                {index !== books.length-1 && <Divider variant="inset" component="li"/>}
                             </div>
                         )
                     })}
