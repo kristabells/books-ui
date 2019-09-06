@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
         display: 'inline',
     },
     highlightedText: {
-        background: 'yellow !important'
+        background: 'yellow'
     },
     bold: {
         fontWeight: 'bold'
